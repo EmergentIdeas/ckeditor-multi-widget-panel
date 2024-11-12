@@ -1,0 +1,17 @@
+{
+  "name": "@webhandle/ckeditor-multi-widget-panel",
+  "version": "1.0.0",
+  "main": "server-lib/integrate.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "files": [
+  	"server-lib",
+	"public/ckeditor",
+	"README.md"
+	]
+}
