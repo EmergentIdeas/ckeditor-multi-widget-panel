@@ -38,7 +38,7 @@ This code is the sort of thing a ck editor plugin would run
 // Just make sure the data structures are in place
 if(!window['@webhandle/ckeditor-widget-panel']) {
 	window['@webhandle/ckeditor-widget-panel'] = {
-		widgets: []
+		widgets: {}
 	}
 }
 if(!window['@webhandle/ckeditor-widget-panel'].widgets) {
@@ -48,7 +48,7 @@ if(!window['@webhandle/ckeditor-widget-panel'].widgets) {
 
 // The secret sauce here is the `template` which should be markup which will
 // be recognized as a widget, and the `action` method, which inserts it.
-// If your widget does not have and editor, remove the call to edit.
+// If your widget does not have an editor, remove the call to edit.
 // It's important to check if the widget is registered with the panel already
 // because the widget will be initialized multiple times, once per editor
 // on the page.
