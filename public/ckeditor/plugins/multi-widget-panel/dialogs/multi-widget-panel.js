@@ -1,6 +1,5 @@
 (function () {
 	let idPrefix = 'i' + (new Date()).getTime()
-	let cellsId = idPrefix + 'cells'
 
 
 	CKEDITOR.dialog.add('multiwidgetpanel', function (editor) {
@@ -26,16 +25,18 @@
 						, {
 							type: 'html',
 							html: `
-						<div id="${cellsId}" class="widget-cells" style="display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 30px; row-gap: 30px; margin-top: 30px;">
+						<div class="widget-cells" style="display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 30px; row-gap: 30px; margin-top: 30px;">
 						</div>
 						`
 						}
 					]
 				}
 			]
-			, onShow: function (one, two) {
+			, onShow: function (invoker, two) {
 				if(!window['@webhandle/ckeditor-widget-panel'].drawWidgets) {
-					window['@webhandle/ckeditor-widget-panel'].drawWidgets = () => {
+					window['@webhandle/ckeditor-widget-panel'].drawWidgets = (invoker, widgetCells) => {
+						widgetCells.innerHTML = ''
+						let editor = invoker.sender._.editor
 						if (window['@webhandle/ckeditor-widget-panel'] && window['@webhandle/ckeditor-widget-panel'].widgets) {
 							for (let widget of Object.values(window['@webhandle/ckeditor-widget-panel'].widgets)) {
 								let widgetCell = document.createElement('div')
@@ -62,21 +63,19 @@
 									widget.action(editor)
 									closeDialog()
 								})
+								widgetCells.appendChild(widgetCell)
 
-								cells.appendChild(widgetCell)
 
 							}
 						}
 					}
 				}
 
-				let editor = one.sender._.editor
-				let cells = document.querySelector(`#${cellsId}`)
 				addStyles()
 
-				if (cells) {
-					cells.innerHTML = ''
-					window['@webhandle/ckeditor-widget-panel'].drawWidgets()
+				let widgetCells = invoker.sender.parts.contents.$.querySelector('.widget-cells')
+				if (widgetCells) {
+					window['@webhandle/ckeditor-widget-panel'].drawWidgets(invoker, widgetCells)
 				}
 			}
 
